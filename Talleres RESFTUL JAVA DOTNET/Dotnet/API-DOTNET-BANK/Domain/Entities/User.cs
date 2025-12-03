@@ -12,6 +12,8 @@
         public DateTime? UpdatedAt { get; set; }
         public required bool IsActive { get; set; }
         public required UserRole Role { get; set; }
+        
+        public ICollection<Account> Accounts { get; set; } = new List<Account>();
     }
 
     public enum UserRole

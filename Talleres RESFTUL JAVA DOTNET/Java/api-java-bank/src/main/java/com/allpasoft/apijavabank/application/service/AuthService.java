@@ -11,5 +11,4 @@ public interface AuthService {
     Optional<AuthResponseDto> register(UserRegisterDto dto);
     Optional<AuthResponseDto> login(LoginRequestDto dto);
     Optional<UserDto> getUserById(Long userId);
-    Optional<UserDto> getMe(Long userId);
 }

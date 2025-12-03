@@ -3,6 +3,7 @@ package com.allpasoft.apijavabank.application.service;
 import com.allpasoft.apijavabank.application.dto.AuthResponseDto;
 import com.allpasoft.apijavabank.application.dto.LoginRequestDto;
 import com.allpasoft.apijavabank.application.dto.UserDto;
+import com.allpasoft.apijavabank.application.dto.UserInfoDto;
 import com.allpasoft.apijavabank.application.dto.UserRegisterDto;
 import com.allpasoft.apijavabank.application.util.PasswordHasher;
 import com.allpasoft.apijavabank.domain.entity.User;
@@ -47,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
         User savedUser = userRepository.save(user);
         String token = jwtUtil.generateToken(savedUser);
 
-        return Optional.of(new AuthResponseDto(token));
+        return Optional.of(new AuthResponseDto(token, toUserInfoDto(savedUser)));
     }
 
     @Override
@@ -65,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         String token = jwtUtil.generateToken(user);
-        return Optional.of(new AuthResponseDto(token));
+        return Optional.of(new AuthResponseDto(token, toUserInfoDto(user)));
     }
 
     @Override
@@ -73,9 +74,16 @@ public class AuthServiceImpl implements AuthService {
         return userRepository.findById(userId).map(this::mapToDto);
     }
 
-    @Override
-    public Optional<UserDto> getMe(Long userId) {
-        return userRepository.findById(userId).map(this::mapToDto);
+    private UserInfoDto toUserInfoDto(User user) {
+        return new UserInfoDto(
+            user.getId(),
+            user.getFirstName(),
+            user.getLastName(),
+            user.getUsername(),
+            user.getEmail(),
+            user.getIsActive(),
+            user.getRole().ordinal()
+        );
     }
 
     private UserDto mapToDto(User user) {

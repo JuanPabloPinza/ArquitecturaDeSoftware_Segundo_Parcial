@@ -7,6 +7,5 @@ namespace API_DOTNET_BANK.Application.Interface
         Task<AuthResponseDto?> RegisterAsync(UserRegisterDto dto);
         Task<AuthResponseDto?> LoginAsync(LoginRequestDto dto);
         Task<UserDto?> GetUserByIdAsync(int userId);
-        Task<UserDto?> GetMeAsync(int userId);
     }
 }

@@ -27,7 +27,8 @@ namespace API_DOTNET_BANK.Application.Service
 
             return new AuthResponseDto
             {
-                AccessToken = GenerateAccessToken(user)
+                AccessToken = GenerateAccessToken(user),
+                User = ToUserInfoDto(user)
             };
         }
 
@@ -58,7 +59,8 @@ namespace API_DOTNET_BANK.Application.Service
 
             return new AuthResponseDto
             {
-                AccessToken = GenerateAccessToken(createdUser)
+                AccessToken = GenerateAccessToken(createdUser),
+                User = ToUserInfoDto(createdUser)
             };
         }
 
@@ -68,11 +70,16 @@ namespace API_DOTNET_BANK.Application.Service
             return user?.ToDto();
         }
 
-        public async Task<UserDto?> GetMeAsync(int userId)
+        private static UserInfoDto ToUserInfoDto(User user) => new()
         {
-            var user = await _userRepository.GetByIdAsync(userId);
-            return user?.ToDto();
-        }
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Username = user.Username,
+            Email = user.Email,
+            IsActive = user.IsActive,
+            Role = (int)user.Role
+        };
 
         private static string ResolveRoleName(UserRole role) =>
             (int)role switch

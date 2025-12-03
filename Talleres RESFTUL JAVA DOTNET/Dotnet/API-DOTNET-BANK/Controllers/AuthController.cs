@@ -3,9 +3,7 @@ using API_DOTNET_BANK.Application.Interface;
 using API_DOTNET_BANK.Application.Service;
 using API_DOTNET_BANK.Infraestructure;
 using API_DOTNET_BANK.Infraestructure.Repository;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace API_DOTNET_BANK.Web.Controllers
 {
@@ -49,27 +47,6 @@ namespace API_DOTNET_BANK.Web.Controllers
             var result = await CreateService().LoginAsync(dto);
             if (result == null)
                 return Unauthorized("Credenciales inválidas");
-
-            return Ok(result);
-        }
-
-        [HttpGet("me")]
-        [Authorize]
-        public async Task<IActionResult> GetMyUser()
-        {
-            Console.WriteLine("Obteniendo claims del usuario autenticado...");
-            
-    
-            var userIdClaim = User.FindFirst("UserId") ?? User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIdClaim is null)
-                return Unauthorized("Token inválido.");
-
-            if (!int.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized("ID de usuario inválido en el token.");
-
-            var result = await CreateService().GetMeAsync(userId);
-            if (result is null)
-                return NotFound("Usuario no encontrado.");
 
             return Ok(result);
         }

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthResponseDto {
-    private String accessToken;
-    private UserInfoDto user;
+public class UpdateAccountDto {
+    private Boolean isActive;
 }

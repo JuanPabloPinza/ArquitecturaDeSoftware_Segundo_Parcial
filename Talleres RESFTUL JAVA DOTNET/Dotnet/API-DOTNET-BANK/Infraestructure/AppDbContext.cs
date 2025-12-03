@@ -10,12 +10,16 @@ namespace API_DOTNET_BANK.Infraestructure
             : base(options) { }
 
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Account> Accounts { get; set; } = null!;
+        public DbSet<Transaction> Transactions { get; set; } = null!;
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new UserConfig());
+            modelBuilder.ApplyConfiguration(new AccountConfig());
+            modelBuilder.ApplyConfiguration(new TransactionConfig());
         }
     }
 }
