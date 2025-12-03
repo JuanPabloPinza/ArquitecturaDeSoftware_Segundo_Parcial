@@ -1,0 +1,21 @@
+export type AuthStackParamList = {
+  Login: undefined;
+  Register: undefined;
+};
+
+export type MainTabParamList = {
+  Home: undefined;
+  Accounts: undefined;
+  Transactions: undefined;
+  Profile: undefined;
+};
+
+export type RootStackParamList = {
+  Auth: undefined;
+  Main: undefined;
+  CreateAccount: undefined;
+  AccountDetail: { accountId: number };
+  Deposit: undefined;
+  Withdrawal: undefined;
+  Transfer: undefined;
+};
