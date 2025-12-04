@@ -115,7 +115,7 @@ export const WebNavigator: React.FC = () => {
       case 'transactions':
         return <TransactionsScreen navigation={mockNavigation} />;
       case 'locations':
-        return <LocationsScreen navigation={mockNavigation} />;
+        return <LocationsScreen />;
       case 'profile':
         return <ProfileScreen navigation={mockNavigation} />;
       default:
