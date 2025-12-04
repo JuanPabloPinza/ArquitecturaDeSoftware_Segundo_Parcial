@@ -5,7 +5,8 @@ import {
   HomeScreen, 
   AccountsScreen, 
   TransactionsScreen, 
-  ProfileScreen 
+  ProfileScreen,
+  LocationsScreen,
 } from '../screens/main';
 import { MainTabParamList } from './types';
 import { colors, fontSize } from '../theme';
@@ -60,6 +61,16 @@ export const MainNavigator: React.FC = () => {
           tabBarLabel: 'Movimientos',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="swap-horizontal" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Locations"
+        component={LocationsScreen}
+        options={{
+          tabBarLabel: 'Sucursales',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="location" size={size} color={color} />
           ),
         }}
       />

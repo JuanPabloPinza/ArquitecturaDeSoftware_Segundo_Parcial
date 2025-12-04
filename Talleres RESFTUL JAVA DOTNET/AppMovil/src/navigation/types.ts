@@ -7,6 +7,7 @@ export type MainTabParamList = {
   Home: undefined;
   Accounts: undefined;
   Transactions: undefined;
+  Locations: undefined;
   Profile: undefined;
 };
 
@@ -14,7 +15,6 @@ export type RootStackParamList = {
   Auth: undefined;
   Main: undefined;
   CreateAccount: undefined;
-  AccountDetail: { accountId: number };
   Deposit: undefined;
   Withdrawal: undefined;
   Transfer: undefined;

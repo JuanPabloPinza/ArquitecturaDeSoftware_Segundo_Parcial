@@ -13,10 +13,11 @@ import { HomeScreen } from '../screens/main/HomeScreen';
 import { AccountsScreen } from '../screens/main/AccountsScreen';
 import { TransactionsScreen } from '../screens/main/TransactionsScreen';
 import { ProfileScreen } from '../screens/main/ProfileScreen';
+import { LocationsScreen } from '../screens/main/LocationsScreen';
 import { Logo } from '../components/ui';
 import { colors, spacing, fontSize, fontWeight, borderRadius } from '../theme';
 
-type WebSection = 'home' | 'accounts' | 'transactions' | 'profile';
+type WebSection = 'home' | 'accounts' | 'transactions' | 'locations' | 'profile';
 
 interface NavCardProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -83,6 +84,13 @@ export const WebNavigator: React.FC = () => {
       gradient: colors.gradientAccent,
     },
     {
+      id: 'locations' as WebSection,
+      icon: 'location' as keyof typeof Ionicons.glyphMap,
+      title: '🗺️ Sucursales',
+      description: 'Encuentra tu banco',
+      gradient: ['#FF9500', '#FFAA33', '#FFCC66'] as const,
+    },
+    {
       id: 'profile' as WebSection,
       icon: 'person' as keyof typeof Ionicons.glyphMap,
       title: '👤 Perfil',
@@ -106,6 +114,8 @@ export const WebNavigator: React.FC = () => {
         return <AccountsScreen navigation={mockNavigation} />;
       case 'transactions':
         return <TransactionsScreen navigation={mockNavigation} />;
+      case 'locations':
+        return <LocationsScreen navigation={mockNavigation} />;
       case 'profile':
         return <ProfileScreen navigation={mockNavigation} />;
       default:
