@@ -11,7 +11,7 @@ interface Props {
 
 export const LocationList: React.FC<Props> = ({ locations, selected, onSelect }) => (
   <View style={styles.container}>
-    <Text style={styles.title}>📍 Selecciona destino</Text>
+    <Text style={styles.title}>Selecciona destino</Text>
     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.scroll}>
       {locations.map((loc) => (
         <TouchableOpacity
@@ -35,11 +35,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(255,255,255,0.95)',
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
     borderTopLeftRadius: borderRadius.xl,
     borderTopRightRadius: borderRadius.xl,
-    padding: spacing.md,
-    paddingBottom: spacing.xl,
+    padding: spacing.sm,
+    paddingBottom: spacing.md,
+    zIndex: 10,
   },
   title: {
     fontSize: fontSize.sm,

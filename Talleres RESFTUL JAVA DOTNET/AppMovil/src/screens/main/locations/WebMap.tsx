@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { BankLocation } from './data';
 
 interface Props {
@@ -22,20 +22,24 @@ export const WebMap: React.FC<Props> = ({ apiKey, selected, userLocation }) => {
   };
 
   return (
-    <iframe
-      src={getMapUrl()}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: '100%',
-        height: '100%',
-        border: 'none',
-      }}
-      loading="lazy"
-      allowFullScreen
-    />
+    <View style={styles.mapContainer}>
+      <iframe
+        src={getMapUrl()}
+        style={{
+          width: '100%',
+          height: '100%',
+          border: 'none',
+        }}
+        loading="lazy"
+        allowFullScreen
+      />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  mapContainer: {
+   width: '100%',
+    height: 700,
+  },
+});

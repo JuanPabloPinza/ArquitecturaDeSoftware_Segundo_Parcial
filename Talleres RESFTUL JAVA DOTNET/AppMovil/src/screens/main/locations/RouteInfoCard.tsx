@@ -55,14 +55,12 @@ const styles = StyleSheet.create({
     top: 60,
     left: spacing.md,
     right: spacing.md,
-    backgroundColor: 'rgba(255,255,255,0.95)',
+    backgroundColor: 'rgba(0, 0, 0, 0.95)',
     borderRadius: borderRadius.lg,
     padding: spacing.md,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 5,
+    zIndex: 10,
+    pointerEvents: 'auto',
+
   },
   header: {
     flexDirection: 'row',
