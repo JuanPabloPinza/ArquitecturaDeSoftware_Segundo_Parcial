@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   View,
   StyleSheet,
   Platform,
   ActivityIndicator,
   Text,
+  Dimensions,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Location from "expo-location";
 import { colors } from "../../theme";
 import {
@@ -22,6 +24,7 @@ import {
 const API_KEY = "";
 
 export const LocationsScreen: React.FC = () => {
+  const insets = useSafeAreaInsets();
   const mapRef = useRef<any>(null);
   const [userLocation, setUserLocation] = useState<{
     latitude: number;
@@ -57,23 +60,37 @@ export const LocationsScreen: React.FC = () => {
     })();
   }, []);
 
-  const handleSelect = (loc: BankLocation) => {
+  const handleSelect = useCallback((loc: BankLocation) => {
     setSelected(loc);
-    setRoute(null);
-    if (mapRef.current && Platform.OS !== "web") {
-      mapRef.current.animateToRegion(
+    
+    // Auto-calculate route when selecting
+    if (userLocation) {
+      const result = calculateRoute(
+        userLocation.latitude,
+        userLocation.longitude,
+        loc.latitude,
+        loc.longitude,
+        parseFloat(fuelPrice) || 0
+      );
+      setRoute(result);
+    }
+    
+    // Fit map to show both user location and destination
+    if (mapRef.current && Platform.OS !== "web" && userLocation) {
+      mapRef.current.fitToCoordinates(
+        [
+          { latitude: userLocation.latitude, longitude: userLocation.longitude },
+          { latitude: loc.latitude, longitude: loc.longitude }
+        ],
         {
-          latitude: loc.latitude,
-          longitude: loc.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        },
-        500
+          edgePadding: { top: 120, right: 50, bottom: 200, left: 50 },
+          animated: true,
+        }
       );
     }
-  };
+  }, [userLocation, fuelPrice]);
 
-  const handleCalculate = () => {
+  const handleCalculate = useCallback(() => {
     if (!userLocation || !selected) return;
     const result = calculateRoute(
       userLocation.latitude,
@@ -83,7 +100,21 @@ export const LocationsScreen: React.FC = () => {
       parseFloat(fuelPrice) || 0
     );
     setRoute(result);
-  };
+    
+    // Fit map to show route
+    if (mapRef.current && Platform.OS !== "web") {
+      mapRef.current.fitToCoordinates(
+        [
+          { latitude: userLocation.latitude, longitude: userLocation.longitude },
+          { latitude: selected.latitude, longitude: selected.longitude }
+        ],
+        {
+          edgePadding: { top: 120, right: 50, bottom: 200, left: 50 },
+          animated: true,
+        }
+      );
+    }
+  }, [userLocation, selected, fuelPrice]);
 
   if (loading) {
     return (
@@ -142,9 +173,10 @@ export const LocationsScreen: React.FC = () => {
         onFuelPriceChange={setFuelPrice}
         onCalculate={handleCalculate}
         disabled={!selected}
+        topInset={insets.top}
       />
 
-      {route && <RouteInfoCard {...route} onClose={() => setRoute(null)} />}
+      {route && <RouteInfoCard {...route} onClose={() => setRoute(null)} topInset={insets.top} />}
 
       <LocationList
         locations={BANK_LOCATIONS}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View, Image } from 'react-native';
 import { MapView, Marker, Polyline } from '../../../components/maps';
 import { colors } from '../../../theme';
 import { BankLocation } from './data';
@@ -87,23 +87,32 @@ export const NativeMap: React.FC<Props> = ({
       initialRegion={INITIAL_REGION}
       showsUserLocation
       showsMyLocationButton
+      showsCompass
+      showsScale
+      mapType="standard"
+      userInterfaceStyle="dark"
     >
-      {locations.map((loc) => (
-        <Marker
-          key={loc.id}
-          coordinate={{ latitude: loc.latitude, longitude: loc.longitude }}
-          title={loc.name}
-          description={loc.address}
-          pinColor={loc.type === 'matriz' ? colors.accent : colors.primary}
-          onPress={() => onSelectLocation(loc)}
-        />
-      ))}
+      {locations.map((loc) => {
+        const isSelected = selected?.id === loc.id;
+        return (
+          <Marker
+            key={loc.id}
+            coordinate={{ latitude: loc.latitude, longitude: loc.longitude }}
+            title={loc.name}
+            description={loc.address}
+            pinColor={isSelected ? colors.success : (loc.type === 'matriz' ? colors.accent : colors.primary)}
+            onPress={() => onSelectLocation(loc)}
+          />
+        );
+      })}
       
       {showRoute && userLocation && selected && routeCoords.length > 0 && (
         <Polyline
           coordinates={routeCoords}
           strokeColor={colors.primary}
-          strokeWidth={4}
+          strokeWidth={5}
+          lineCap="round"
+          lineJoin="round"
         />
       )}
     </MapView>
@@ -112,11 +121,6 @@ export const NativeMap: React.FC<Props> = ({
 
 const styles = StyleSheet.create({
   map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 0,
+    ...StyleSheet.absoluteFillObject,
   },
 });
