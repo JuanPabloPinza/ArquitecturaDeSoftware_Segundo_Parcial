@@ -13,10 +13,6 @@
             <file>file:/D:/ReposGitHub/Talleres_P1_Arquitectura/TI1.8%20REST_DOTNET_CONDBB_EUREKABANK_GR03/02.%20CLIESC/eurekabank_escritorio/src/ec/edu/gr03/controller/EurekaBankController.java</file>
             <file>file:/D:/ReposGitHub/Talleres_P1_Arquitectura/TI1.8%20REST_DOTNET_CONDBB_EUREKABANK_GR03/02.%20CLIESC/eurekabank_escritorio/src/ec/edu/gr03/model/EurekaBankClient.java</file>
         </group>
-        <group name="EurekaBank_REST_JAVA">
-            <file>file:/D:/ReposGitHub/ArquitecturaDeSoftware_Segundo_Parcial/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04.%20CLIESC/eurekabank_escritorio/src/ec/edu/gr03/controller/EurekaBankClient.java</file>
-            <file>file:/D:/ReposGitHub/ArquitecturaDeSoftware_Segundo_Parcial/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04.%20CLIESC/eurekabank_escritorio/src/ec/edu/gr03/controller/EurekaBankController.java</file>
-            <file>file:/D:/ReposGitHub/ArquitecturaDeSoftware_Segundo_Parcial/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04.%20CLIESC/eurekabank_escritorio/src/ec/edu/gr03/model/EurekaBankClient.java</file>
-        </group>
+        <group name="EurekaBank_REST_JAVA"/>
     </open-files>
 </project-private>
