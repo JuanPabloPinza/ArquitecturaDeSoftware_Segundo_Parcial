@@ -1,3 +1,4 @@
+# --- RUTAS ESPECÍFICAS DEL PROYECTO EUREKABANK (TU BLOQUE) ---
 /T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/build/
 /T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/dist
 /T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/nbproject/private
@@ -5,6 +6,7 @@
 /T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/dist
 /T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/nbproject/private
 /T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIWEB/CLIWEB_EurekaBank_RESTDOTNET/target
+
 /EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/build/
 /EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/dist/
 /EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/nbproject/private/
@@ -12,3 +14,89 @@
 /EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/dist/
 /EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/nbproject/private/
 /EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIWEB/CLIWEB_EurekaBank_RESTDOTNET/target/
+
+
+# --- BLOQUE DEL REMOTO ---
+# Build results
+**/bin/
+**/obj/
+.vs
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+**/node_modules/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# Visual Studio Code
+.vscode/
+
+# ASP.NET Core environment files
+appsettings.*.json
+
+# Dotnet tools
+*.dbmdl
+*.pdb
+
+# Logs
+*.log
+
+# NuGet packages
+**.env
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Rider
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Publish output
+publish/
+out/
+
+# Test results
+TestResults/
+*.trx
+
+# Others
+*.vspscc
+*.vssscc
+*.DotSettings.user
