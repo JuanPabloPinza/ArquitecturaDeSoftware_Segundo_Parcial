@@ -1,3 +1,22 @@
+# --- RUTAS ESPECÍFICAS DEL PROYECTO EUREKABANK (TU BLOQUE) ---
+/T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/build/
+/T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/dist
+/T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/nbproject/private
+/T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/build
+/T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/dist
+/T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/nbproject/private
+/T.I.2.4EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIWEB/CLIWEB_EurekaBank_RESTDOTNET/target
+
+/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/build/
+/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/dist/
+/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLICON/eurekabank_consola/nbproject/private/
+/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/build/
+/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/dist/
+/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIESC/eurekabank_escritorio/nbproject/private/
+/EUREKABANK_BDDNUBE_REST_DOTNET_GR01/04. CLIWEB/CLIWEB_EurekaBank_RESTDOTNET/target/
+
+
+# --- BLOQUE DEL REMOTO ---
 # Build results
 **/bin/
 **/obj/
@@ -42,7 +61,6 @@ out/
 ### VS Code ###
 .vscode/
 
-
 # Visual Studio Code
 .vscode/
 
@@ -62,7 +80,6 @@ appsettings.*.json
 *.snupkg
 packages/
 .nuget/
-
 
 # Rider
 .idea/
