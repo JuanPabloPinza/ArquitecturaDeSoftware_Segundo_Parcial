@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 
 const getBaseUrl = () => {
     if (Platform.OS === 'android') {
-        return 'http://172.20.10.2:5238';
+        return 'http://10.40.29.241:5238';
     }
     return 'http://localhost:5238';
 };

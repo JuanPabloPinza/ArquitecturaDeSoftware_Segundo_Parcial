@@ -21,7 +21,7 @@ import {
   WebMap,
 } from "./locations";
 
-const API_KEY = "AIzaSyBYANv9b5K5Zu1eUP_iJijkXwVlQbiXajE";
+const API_KEY = "AIzaSyDYTsDl9sqZtGC1pgu3GZB3-ryf1-TeUCM";
 
 export const LocationsScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -60,35 +60,41 @@ export const LocationsScreen: React.FC = () => {
     })();
   }, []);
 
-  const handleSelect = useCallback((loc: BankLocation) => {
-    setSelected(loc);
-    
-    // Auto-calculate route when selecting
-    if (userLocation) {
-      const result = calculateRoute(
-        userLocation.latitude,
-        userLocation.longitude,
-        loc.latitude,
-        loc.longitude,
-        parseFloat(fuelPrice) || 0
-      );
-      setRoute(result);
-    }
-    
-    // Fit map to show both user location and destination
-    if (mapRef.current && Platform.OS !== "web" && userLocation) {
-      mapRef.current.fitToCoordinates(
-        [
-          { latitude: userLocation.latitude, longitude: userLocation.longitude },
-          { latitude: loc.latitude, longitude: loc.longitude }
-        ],
-        {
-          edgePadding: { top: 120, right: 50, bottom: 200, left: 50 },
-          animated: true,
-        }
-      );
-    }
-  }, [userLocation, fuelPrice]);
+  const handleSelect = useCallback(
+    (loc: BankLocation) => {
+      setSelected(loc);
+
+      // Auto-calculate route when selecting
+      if (userLocation) {
+        const result = calculateRoute(
+          userLocation.latitude,
+          userLocation.longitude,
+          loc.latitude,
+          loc.longitude,
+          parseFloat(fuelPrice) || 0
+        );
+        setRoute(result);
+      }
+
+      // Fit map to show both user location and destination
+      if (mapRef.current && Platform.OS !== "web" && userLocation) {
+        mapRef.current.fitToCoordinates(
+          [
+            {
+              latitude: userLocation.latitude,
+              longitude: userLocation.longitude,
+            },
+            { latitude: loc.latitude, longitude: loc.longitude },
+          ],
+          {
+            edgePadding: { top: 120, right: 50, bottom: 200, left: 50 },
+            animated: true,
+          }
+        );
+      }
+    },
+    [userLocation, fuelPrice]
+  );
 
   const handleCalculate = useCallback(() => {
     if (!userLocation || !selected) return;
@@ -100,13 +106,16 @@ export const LocationsScreen: React.FC = () => {
       parseFloat(fuelPrice) || 0
     );
     setRoute(result);
-    
+
     // Fit map to show route
     if (mapRef.current && Platform.OS !== "web") {
       mapRef.current.fitToCoordinates(
         [
-          { latitude: userLocation.latitude, longitude: userLocation.longitude },
-          { latitude: selected.latitude, longitude: selected.longitude }
+          {
+            latitude: userLocation.latitude,
+            longitude: userLocation.longitude,
+          },
+          { latitude: selected.latitude, longitude: selected.longitude },
         ],
         {
           edgePadding: { top: 120, right: 50, bottom: 200, left: 50 },
@@ -131,9 +140,9 @@ export const LocationsScreen: React.FC = () => {
       <View style={styles.container}>
         <View style={styles.mapWrapper}>
           <WebMap
-          apiKey={API_KEY}
-          selected={selected}
-          userLocation={userLocation}
+            apiKey={API_KEY}
+            selected={selected}
+            userLocation={userLocation}
           />
         </View>
 
@@ -176,7 +185,13 @@ export const LocationsScreen: React.FC = () => {
         topInset={insets.top}
       />
 
-      {route && <RouteInfoCard {...route} onClose={() => setRoute(null)} topInset={insets.top} />}
+      {route && (
+        <RouteInfoCard
+          {...route}
+          onClose={() => setRoute(null)}
+          topInset={insets.top}
+        />
+      )}
 
       <LocationList
         locations={BANK_LOCATIONS}
@@ -195,8 +210,8 @@ const styles = StyleSheet.create({
   },
   mapWrapper: {
     flex: 1,
-    width: '100%',
-    height: '100%'
+    width: "100%",
+    height: "100%",
   },
   loading: {
     flex: 1,
