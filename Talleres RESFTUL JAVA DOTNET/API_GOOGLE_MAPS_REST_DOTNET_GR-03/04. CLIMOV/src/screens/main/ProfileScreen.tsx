@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Card, Button, GradientBackground } from "../../components/ui";
@@ -28,6 +29,13 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({
   const [currentApi, setCurrentApi] = useState<"dotnet" | "java">("dotnet");
 
   const handleLogout = async () => {
+    // En web, cerrar directamente sin modal
+    if (Platform.OS === 'web') {
+      await logout();
+      return;
+    }
+    
+    // En móvil, mostrar confirmación
     Alert.alert(
       "👋 ¿Cerrar Sesión?",
       "¿Estás seguro que quieres salir? ¡Te extrañaremos!",

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -14,10 +14,12 @@ import { AccountsScreen } from '../screens/main/AccountsScreen';
 import { TransactionsScreen } from '../screens/main/TransactionsScreen';
 import { ProfileScreen } from '../screens/main/ProfileScreen';
 import { LocationsScreen } from '../screens/main/LocationsScreen';
+import { DepositScreen, WithdrawalScreen, TransferScreen, CreateAccountScreen } from '../screens/operations';
 import { Logo } from '../components/ui';
 import { colors, spacing, fontSize, fontWeight, borderRadius } from '../theme';
 
 type WebSection = 'home' | 'accounts' | 'transactions' | 'locations' | 'profile';
+type SubScreen = 'Deposit' | 'Withdrawal' | 'Transfer' | 'CreateAccount' | 'Profile' | null;
 
 interface NavCardProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -60,6 +62,61 @@ const NavCard: React.FC<NavCardProps> = ({
 
 export const WebNavigator: React.FC = () => {
   const [activeSection, setActiveSection] = useState<WebSection>('home');
+  const [currentSubScreen, setCurrentSubScreen] = useState<SubScreen>(null);
+  const [navigationParams, setNavigationParams] = useState<any>(null);
+
+  // Función de navegación real para web
+  const webNavigation = useCallback(() => ({
+    navigate: (screen: string, params?: any) => {
+      console.log('Web navigate to:', screen, params);
+      // Mapear las pantallas a secciones o sub-pantallas
+      switch (screen) {
+        case 'Deposit':
+        case 'Withdrawal':
+        case 'Transfer':
+        case 'CreateAccount':
+          setCurrentSubScreen(screen as SubScreen);
+          setNavigationParams(params);
+          break;
+        case 'Profile':
+          setActiveSection('profile');
+          setCurrentSubScreen(null);
+          break;
+        case 'Home':
+          setActiveSection('home');
+          setCurrentSubScreen(null);
+          break;
+        case 'Accounts':
+          setActiveSection('accounts');
+          setCurrentSubScreen(null);
+          break;
+        case 'Transactions':
+          setActiveSection('transactions');
+          setCurrentSubScreen(null);
+          break;
+        default:
+          console.log('Unknown screen:', screen);
+      }
+    },
+    goBack: () => {
+      console.log('Web goBack');
+      setCurrentSubScreen(null);
+      setNavigationParams(null);
+    },
+    setOptions: () => {},
+    getParent: () => null,
+    reset: () => {
+      setActiveSection('home');
+      setCurrentSubScreen(null);
+    },
+  }), []);
+
+  // Manejar cambio de sección (resetea sub-pantalla)
+  const handleSectionChange = (section: WebSection) => {
+    setActiveSection(section);
+    setCurrentSubScreen(null);
+    setNavigationParams(null);
+  };
 
   const sections = [
     {
@@ -100,27 +157,64 @@ export const WebNavigator: React.FC = () => {
   ];
 
   const renderContent = () => {
-    // Creamos un mock navigation para los screens
-    const mockNavigation: any = {
-      navigate: () => {},
-      goBack: () => {},
-      setOptions: () => {},
-    };
+    const navigation = webNavigation();
 
+    // Si hay una sub-pantalla activa, mostrarla
+    if (currentSubScreen) {
+      switch (currentSubScreen) {
+        case 'Deposit':
+          return <DepositScreen navigation={navigation} />;
+        case 'Withdrawal':
+          return <WithdrawalScreen navigation={navigation} />;
+        case 'Transfer':
+          return <TransferScreen navigation={navigation} />;
+        case 'CreateAccount':
+          return <CreateAccountScreen navigation={navigation} />;
+      }
+    }
+
+    // Mostrar la sección principal
     switch (activeSection) {
       case 'home':
-        return <HomeScreen navigation={mockNavigation} />;
+        return <HomeScreen navigation={navigation} />;
       case 'accounts':
-        return <AccountsScreen navigation={mockNavigation} />;
+        return <AccountsScreen navigation={navigation} />;
       case 'transactions':
-        return <TransactionsScreen navigation={mockNavigation} />;
+        return <TransactionsScreen navigation={navigation} />;
       case 'locations':
         return <LocationsScreen />;
       case 'profile':
-        return <ProfileScreen navigation={mockNavigation} />;
+        return <ProfileScreen navigation={navigation} />;
       default:
-        return <HomeScreen navigation={mockNavigation} />;
+        return <HomeScreen navigation={navigation} />;
     }
+  };
+
+  // Obtener título de la sub-pantalla si existe
+  const getContentTitle = () => {
+    if (currentSubScreen) {
+      switch (currentSubScreen) {
+        case 'Deposit': return '💰 Depósito';
+        case 'Withdrawal': return '💸 Retiro';
+        case 'Transfer': return '🔄 Transferencia';
+        case 'CreateAccount': return '➕ Nueva Cuenta';
+        default: return '';
+      }
+    }
+    return sections.find(s => s.id === activeSection)?.title || '';
+  };
+
+  const getContentSubtitle = () => {
+    if (currentSubScreen) {
+      switch (currentSubScreen) {
+        case 'Deposit': return 'Realiza un depósito a tu cuenta';
+        case 'Withdrawal': return 'Retira fondos de tu cuenta';
+        case 'Transfer': return 'Transfiere entre cuentas';
+        case 'CreateAccount': return 'Crea una nueva cuenta bancaria';
+        default: return '';
+      }
+    }
+    return sections.find(s => s.id === activeSection)?.description || '';
   };
 
   return (
@@ -143,8 +237,8 @@ export const WebNavigator: React.FC = () => {
               icon={section.icon}
               title={section.title}
               description={section.description}
-              isActive={activeSection === section.id}
-              onPress={() => setActiveSection(section.id)}
+              isActive={activeSection === section.id && !currentSubScreen}
+              onPress={() => handleSectionChange(section.id)}
               gradient={section.gradient}
             />
           ))}
@@ -163,11 +257,23 @@ export const WebNavigator: React.FC = () => {
       {/* Contenido Principal */}
       <View style={styles.content}>
         <View style={styles.contentHeader}>
+          {currentSubScreen && (
+            <Pressable 
+              onPress={() => {
+                setCurrentSubScreen(null);
+                setNavigationParams(null);
+              }}
+              style={[styles.backButton, { cursor: 'pointer' }]}
+            >
+              <Ionicons name="arrow-back" size={20} color={colors.accent} />
+              <Text style={styles.backButtonText}>Volver</Text>
+            </Pressable>
+          )}
           <Text style={styles.contentTitle}>
-            {sections.find(s => s.id === activeSection)?.title}
+            {getContentTitle()}
           </Text>
           <Text style={styles.contentSubtitle}>
-            {sections.find(s => s.id === activeSection)?.description}
+            {getContentSubtitle()}
           </Text>
         </View>
         
@@ -278,6 +384,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
     backgroundColor: colors.surface,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing.sm,
+  },
+  backButtonText: {
+    color: colors.accent,
+    fontSize: fontSize.sm,
+    fontWeight: fontWeight.medium,
+    marginLeft: spacing.xs,
   },
   contentTitle: {
     color: colors.textPrimary,
