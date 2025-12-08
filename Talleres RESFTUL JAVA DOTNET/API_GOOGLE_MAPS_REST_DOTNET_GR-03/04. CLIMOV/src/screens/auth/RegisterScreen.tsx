@@ -6,12 +6,12 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Logo, Input, Button, GradientBackground } from '../../components/ui';
 import { useAuth } from '../../context';
 import { colors, spacing, fontSize, fontWeight } from '../../theme';
+import { showAlert } from '../../utils/alert';
 import { AuthStackParamList } from '../../navigation/types';
 
 type RegisterScreenProps = {
@@ -77,14 +77,14 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
         email: formData.email,
         password: formData.password,
       });
-      Alert.alert(
+      showAlert(
         '🎓 ¡Inscripción Exitosa!',
         '¡Bienvenido a Monsters University! Tu cuenta está lista.',
         [{ text: '¡Genial!' }]
       );
       // La navegación es automática porque el contexto actualiza isAuthenticated
     } catch (error: any) {
-      Alert.alert(
+      showAlert(
         '🎓 Error de Inscripción',
         error.response?.data?.message || error.message || 'No pudimos registrarte. ¡Hasta Sulley tuvo problemas!',
         [{ text: 'Reintentar' }]

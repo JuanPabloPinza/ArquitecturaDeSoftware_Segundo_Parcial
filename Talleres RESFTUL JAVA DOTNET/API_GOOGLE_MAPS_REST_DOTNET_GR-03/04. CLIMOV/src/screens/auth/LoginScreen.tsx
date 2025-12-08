@@ -6,12 +6,12 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Logo, Input, Button, GradientBackground } from '../../components/ui';
 import { useAuth } from '../../context';
 import { colors, spacing, fontSize, fontWeight } from '../../theme';
+import { showAlert } from '../../utils/alert';
 import { AuthStackParamList } from '../../navigation/types';
 
 type LoginScreenProps = {
@@ -46,14 +46,14 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     setLoading(true);
     try {
       await login({ email, password });
-      Alert.alert(
+      showAlert(
         '🎉 ¡Bienvenido!',
         '¡Iniciaste sesión exitosamente! Preparando tu portal...',
         [{ text: '¡Vamos!' }]
       );
       // La navegación es automática porque el contexto actualiza isAuthenticated
     } catch (error: any) {
-      Alert.alert(
+      showAlert(
         '👻 ¡Ups!',
         error.response?.data?.message || error.message || 'Credenciales inválidas. ¡Ni Randall pudo entrar!',
         [{ text: 'Reintentar' }]

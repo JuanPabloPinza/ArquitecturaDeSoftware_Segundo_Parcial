@@ -4,12 +4,12 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
 import { Input, Button, Card, GradientBackground } from '../../components/ui';
 import { transactionService, accountService, authService } from '../../services';
 import { colors, spacing, fontSize, fontWeight, borderRadius } from '../../theme';
+import { showAlert } from '../../utils/alert';
 import type { Account } from '../../types';
 
 export const WithdrawalScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -38,18 +38,18 @@ export const WithdrawalScreen: React.FC<{ navigation: any }> = ({ navigation }) 
 
   const handleWithdrawal = async () => {
     if (!selectedAccount) {
-      Alert.alert('❌ Error', 'Selecciona una cuenta');
+      showAlert('❌ Error', 'Selecciona una cuenta');
       return;
     }
 
     const withdrawAmount = parseFloat(amount);
     if (!withdrawAmount || withdrawAmount <= 0) {
-      Alert.alert('❌ Error', 'Ingresa un monto válido');
+      showAlert('❌ Error', 'Ingresa un monto válido');
       return;
     }
 
     if (withdrawAmount > selectedAccount.balance) {
-      Alert.alert(
+      showAlert(
         '👻 ¡Fondos Insuficientes!',
         'No tienes suficiente balance. ¡Hasta Randall necesita ahorrar más!'
       );
@@ -64,7 +64,7 @@ export const WithdrawalScreen: React.FC<{ navigation: any }> = ({ navigation }) 
         description: description || 'Retiro',
       });
 
-      Alert.alert(
+      showAlert(
         '💸 ¡Retiro Exitoso!',
         `Se retiraron $${withdrawAmount.toFixed(2)} de tu cuenta`,
         [{ text: '¡OK!', onPress: () => navigation.goBack() }]
@@ -73,7 +73,7 @@ export const WithdrawalScreen: React.FC<{ navigation: any }> = ({ navigation }) 
       const errorMsg = typeof error.response?.data === 'string' 
         ? error.response.data 
         : error.response?.data?.message || error.message || 'No se pudo realizar el retiro';
-      Alert.alert('❌ Error', String(errorMsg));
+      showAlert('❌ Error', String(errorMsg));
     } finally {
       setLoading(false);
     }

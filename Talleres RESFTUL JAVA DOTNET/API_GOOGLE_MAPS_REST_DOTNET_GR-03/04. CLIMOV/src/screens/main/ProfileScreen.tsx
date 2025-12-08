@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Alert,
   Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,6 +17,7 @@ import {
   fontWeight,
   borderRadius,
 } from "../../theme";
+import { showAlert } from "../../utils/alert";
 import { API_CONFIG } from "../../config/api.config";
 import { apiClient } from "../../services";
 import type { User } from "../../types";
@@ -36,7 +36,7 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({
     }
     
     // En móvil, mostrar confirmación
-    Alert.alert(
+    showAlert(
       "👋 ¿Cerrar Sesión?",
       "¿Estás seguro que quieres salir? ¡Te extrañaremos!",
       [
@@ -59,7 +59,7 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({
       newApi === "dotnet" ? API_CONFIG.DOTNET_URL : API_CONFIG.JAVA_URL;
     apiClient.setBaseUrl(newUrl);
 
-    Alert.alert(
+    showAlert(
       "🔄 API Cambiada",
       `Ahora estás usando el backend de ${newApi.toUpperCase()}`,
       [{ text: "OK" }]

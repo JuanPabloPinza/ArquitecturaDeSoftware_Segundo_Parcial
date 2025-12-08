@@ -4,13 +4,13 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Input, Button, Card, GradientBackground } from '../../components/ui';
 import { transactionService, accountService, authService } from '../../services';
 import { colors, spacing, fontSize, fontWeight, borderRadius } from '../../theme';
+import { showAlert } from '../../utils/alert';
 import type { Account } from '../../types';
 
 export const TransferScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -51,28 +51,28 @@ export const TransferScreen: React.FC<{ navigation: any }> = ({ navigation }) =>
 
   const handleTransfer = async () => {
     if (!sourceAccount) {
-      Alert.alert('❌ Error', 'Selecciona una cuenta de origen');
+      showAlert('❌ Error', 'Selecciona una cuenta de origen');
       return;
     }
     
     if (!destinationAccount) {
-      Alert.alert('❌ Error', 'Selecciona una cuenta de destino');
+      showAlert('❌ Error', 'Selecciona una cuenta de destino');
       return;
     }
 
     if (destinationAccount.id === sourceAccount.id) {
-      Alert.alert('❌ Error', 'No puedes transferir a la misma cuenta');
+      showAlert('❌ Error', 'No puedes transferir a la misma cuenta');
       return;
     }
 
     const transferAmount = parseFloat(amount);
     if (!transferAmount || transferAmount <= 0) {
-      Alert.alert('❌ Error', 'Ingresa un monto válido');
+      showAlert('❌ Error', 'Ingresa un monto válido');
       return;
     }
 
     if (transferAmount > sourceAccount.balance) {
-      Alert.alert(
+      showAlert(
         '👻 ¡Fondos Insuficientes!',
         'No tienes suficiente balance para esta transferencia'
       );
@@ -95,7 +95,7 @@ export const TransferScreen: React.FC<{ navigation: any }> = ({ navigation }) =>
         description: description || 'Transferencia',
       });
 
-      Alert.alert(
+      showAlert(
         '🔄 ¡Transferencia Exitosa!',
         `Se transfirieron $${transferAmount.toFixed(2)} correctamente`,
         [{ text: '¡Genial!', onPress: () => navigation.goBack() }]
@@ -121,7 +121,7 @@ export const TransferScreen: React.FC<{ navigation: any }> = ({ navigation }) =>
         errorMsg = error.message;
       }
       
-      Alert.alert('❌ Error', String(errorMsg));
+      showAlert('❌ Error', String(errorMsg));
     } finally {
       setLoading(false);
     }

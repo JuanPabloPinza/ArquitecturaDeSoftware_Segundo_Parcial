@@ -1,7 +1,7 @@
 import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Card, Input } from "../../components/ui";
 import { accountService, authService } from "../../services";
 import {
@@ -11,6 +11,7 @@ import {
   fontWeight,
   spacing,
 } from "../../theme";
+import { showAlert } from "../../utils/alert";
 import { AccountType, AccountTypeLabels } from "../../types";
 
 export const CreateAccountScreen: React.FC<{ navigation: any }> = ({
@@ -26,7 +27,7 @@ export const CreateAccountScreen: React.FC<{ navigation: any }> = ({
     const balance = parseFloat(initialBalance) || 0;
 
     if (balance < 0) {
-      Alert.alert("❌ Error", "El balance no puede ser negativo");
+      showAlert("❌ Error", "El balance no puede ser negativo");
       return;
     }
 
@@ -34,7 +35,7 @@ export const CreateAccountScreen: React.FC<{ navigation: any }> = ({
     try {
       const user = await authService.getCurrentUser();
       if (!user) {
-        Alert.alert("❌ Error", "No se encontró el usuario");
+        showAlert("❌ Error", "No se encontró el usuario");
         return;
       }
 
@@ -44,7 +45,7 @@ export const CreateAccountScreen: React.FC<{ navigation: any }> = ({
         initialBalance: balance,
       });
 
-      Alert.alert(
+      showAlert(
         "🎉 ¡Cuenta Creada!",
         "Tu nueva cuenta monstruosa está lista para usar",
         [{ text: "¡Genial!", onPress: () => navigation.goBack() }]
@@ -53,7 +54,7 @@ export const CreateAccountScreen: React.FC<{ navigation: any }> = ({
       const errorMsg = typeof error.response?.data === 'string' 
         ? error.response.data 
         : error.response?.data?.message || error.message || 'No se pudo crear la cuenta';
-      Alert.alert('❌ Error', String(errorMsg));
+      showAlert('❌ Error', String(errorMsg));
     } finally {
       setLoading(false);
     }

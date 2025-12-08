@@ -4,12 +4,12 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
 import { Input, Button, Card, GradientBackground } from '../../components/ui';
 import { transactionService, accountService, authService } from '../../services';
 import { colors, spacing, fontSize, fontWeight, borderRadius } from '../../theme';
+import { showAlert } from '../../utils/alert';
 import type { Account } from '../../types';
 
 export const DepositScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -38,13 +38,13 @@ export const DepositScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
 
   const handleDeposit = async () => {
     if (!selectedAccount) {
-      Alert.alert('❌ Error', 'Selecciona una cuenta');
+      showAlert('❌ Error', 'Selecciona una cuenta');
       return;
     }
 
     const depositAmount = parseFloat(amount);
     if (!depositAmount || depositAmount <= 0) {
-      Alert.alert('❌ Error', 'Ingresa un monto válido');
+      showAlert('❌ Error', 'Ingresa un monto válido');
       return;
     }
 
@@ -56,7 +56,7 @@ export const DepositScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
         description: description || 'Depósito',
       });
 
-      Alert.alert(
+      showAlert(
         '💚 ¡Depósito Exitoso!',
         `Se depositaron $${depositAmount.toFixed(2)} en tu cuenta`,
         [{ text: '¡Genial!', onPress: () => navigation.goBack() }]
@@ -65,7 +65,7 @@ export const DepositScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
       const errorMsg = typeof error.response?.data === 'string' 
         ? error.response.data 
         : error.response?.data?.message || error.message || 'No se pudo realizar el depósito';
-      Alert.alert('❌ Error', String(errorMsg));
+      showAlert('❌ Error', String(errorMsg));
     } finally {
       setLoading(false);
     }
