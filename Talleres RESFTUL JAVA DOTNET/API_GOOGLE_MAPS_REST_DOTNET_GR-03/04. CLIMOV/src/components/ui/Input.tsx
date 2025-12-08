@@ -5,10 +5,13 @@ import {
   Text,
   StyleSheet,
   TextInputProps,
-  TouchableOpacity,
+  Pressable,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { colors, borderRadius, spacing, fontSize, fontWeight } from '../../theme';
+
+const webStyles = Platform.OS === 'web' ? { cursor: 'pointer' as const } : {};
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -65,25 +68,25 @@ export const Input: React.FC<InputProps> = ({
         />
         
         {isPassword && (
-          <TouchableOpacity
+          <Pressable
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-            style={styles.rightIconButton}
+            style={[styles.rightIconButton, webStyles]}
           >
             <Ionicons
               name={showPassword ? 'eye-off' : 'eye'}
               size={20}
               color={colors.textMuted}
             />
-          </TouchableOpacity>
+          </Pressable>
         )}
         
         {rightIcon && !isPassword && (
-          <TouchableOpacity
+          <Pressable
             onPress={onRightIconPress}
-            style={styles.rightIconButton}
+            style={[styles.rightIconButton, webStyles]}
           >
             <Ionicons name={rightIcon} size={20} color={colors.textMuted} />
-          </TouchableOpacity>
+          </Pressable>
         )}
       </View>
       

@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
   Dimensions,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -38,7 +38,7 @@ const NavCard: React.FC<NavCardProps> = ({
   onPress,
   gradient 
 }) => (
-  <TouchableOpacity onPress={onPress} style={styles.navCardWrapper}>
+  <Pressable onPress={onPress} style={[styles.navCardWrapper, { cursor: 'pointer' }]}>
     <LinearGradient
       colors={isActive ? gradient : inactiveGradient}
       style={[styles.navCard, isActive && styles.navCardActive]}
@@ -55,7 +55,7 @@ const NavCard: React.FC<NavCardProps> = ({
       </Text>
       <Text style={styles.navCardDescription}>{description}</Text>
     </LinearGradient>
-  </TouchableOpacity>
+  </Pressable>
 );
 
 export const WebNavigator: React.FC = () => {

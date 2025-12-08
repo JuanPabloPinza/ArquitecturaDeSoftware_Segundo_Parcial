@@ -1,14 +1,18 @@
 import React from 'react';
 import {
-  TouchableOpacity,
+  Pressable,
   Text,
   StyleSheet,
   ActivityIndicator,
   ViewStyle,
   TextStyle,
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colors, borderRadius, spacing, fontSize, fontWeight } from '../../theme';
+
+// Estilos web para cursor pointer
+const webStyles = Platform.OS === 'web' ? { cursor: 'pointer' as const } : {};
 
 interface ButtonProps {
   title: string;
@@ -63,11 +67,15 @@ export const Button: React.FC<ButtonProps> = ({
     const disabledColors = [colors.border, colors.borderLight, colors.border] as const;
 
     return (
-      <TouchableOpacity
+      <Pressable
         onPress={onPress}
         disabled={isDisabled}
-        style={[styles.buttonBase, style]}
-        activeOpacity={0.8}
+        style={({ pressed }) => [
+          styles.buttonBase, 
+          style, 
+          webStyles,
+          pressed && { opacity: 0.8 }
+        ]}
       >
         <LinearGradient
           colors={isDisabled ? disabledColors : gradientColors}
@@ -86,23 +94,24 @@ export const Button: React.FC<ButtonProps> = ({
             </>
           )}
         </LinearGradient>
-      </TouchableOpacity>
+      </Pressable>
     );
   }
 
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={onPress}
       disabled={isDisabled}
-      style={[
+      style={({ pressed }) => [
         styles.buttonBase,
         variant === 'outline' && styles.outline,
         variant === 'ghost' && styles.ghost,
         sizeStyles.container,
         isDisabled && styles.disabled,
         style,
+        webStyles,
+        pressed && { opacity: 0.7 }
       ]}
-      activeOpacity={0.7}
     >
       {loading ? (
         <ActivityIndicator color={variant === 'outline' ? colors.primary : colors.textSecondary} />
@@ -122,7 +131,7 @@ export const Button: React.FC<ButtonProps> = ({
           </Text>
         </>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

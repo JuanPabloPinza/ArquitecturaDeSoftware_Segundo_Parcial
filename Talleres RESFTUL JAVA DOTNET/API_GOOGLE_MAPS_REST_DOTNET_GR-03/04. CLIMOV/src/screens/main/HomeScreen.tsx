@@ -1,19 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   RefreshControl,
-  TouchableOpacity,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useFocusEffect } from '@react-navigation/native';
-import { AccountCard } from '../../components/bank';
-import { Card, Button, GradientBackground } from '../../components/ui';
-import { accountService, authService } from '../../services';
-import { colors, spacing, fontSize, fontWeight, borderRadius } from '../../theme';
-import type { Account, User } from '../../types';
+  Pressable,
+  Platform,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
+import { AccountCard } from "../../components/bank";
+import { Card, Button, GradientBackground } from "../../components/ui";
+import { accountService, authService } from "../../services";
+import {
+  colors,
+  spacing,
+  fontSize,
+  fontWeight,
+  borderRadius,
+} from "../../theme";
+import type { Account, User } from "../../types";
+
+const webStyles = Platform.OS === "web" ? { cursor: "pointer" as const } : {};
 
 export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -25,13 +34,13 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
     try {
       const currentUser = await authService.getCurrentUser();
       setUser(currentUser);
-      
+
       if (currentUser) {
         const userAccounts = await accountService.getByUserId(currentUser.id);
         setAccounts(userAccounts);
       }
     } catch (error) {
-      console.error('Error loading data:', error);
+      console.error("Error loading data:", error);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -53,9 +62,9 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return '🌅 Buenos días';
-    if (hour < 18) return '☀️ Buenas tardes';
-    return '🌙 Buenas noches';
+    if (hour < 12) return "🌅 Buenos días";
+    if (hour < 18) return "☀️ Buenas tardes";
+    return "🌙 Buenas noches";
   };
 
   return (
@@ -76,82 +85,98 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <View>
             <Text style={styles.greeting}>{getGreeting()}</Text>
             <Text style={styles.userName}>
-              {user ? `${user.firstName} ${user.lastName}` : 'Monstruo'}
+              {user ? `${user.firstName} ${user.lastName}` : "Monstruo"}
             </Text>
           </View>
-          <TouchableOpacity
-            style={styles.profileButton}
-            onPress={() => navigation.navigate('Profile')}
+          <Pressable
+            style={[styles.profileButton, webStyles]}
+            onPress={() => navigation.navigate("Profile")}
           >
             <View style={styles.profileGradient}>
               <Text style={styles.profileInitial}>
-                {user?.firstName?.charAt(0) || '👻'}
+                {user?.firstName?.charAt(0) || "👻"}
               </Text>
             </View>
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         {/* Balance Total */}
         <Card variant="gradient" style={styles.balanceCard}>
           <Text style={styles.balanceLabel}>💰 Balance Total</Text>
           <Text style={styles.balanceAmount}>
-            ${totalBalance.toLocaleString('es-EC', { minimumFractionDigits: 2 })}
+            $
+            {totalBalance.toLocaleString("es-EC", { minimumFractionDigits: 2 })}
           </Text>
           <Text style={styles.balanceSubtext}>
-            {accounts.length} cuenta{accounts.length !== 1 ? 's' : ''} activa{accounts.length !== 1 ? 's' : ''}
+            {accounts.length} cuenta{accounts.length !== 1 ? "s" : ""} activa
+            {accounts.length !== 1 ? "s" : ""}
           </Text>
         </Card>
 
         {/* Quick Actions */}
         <Text style={styles.sectionTitle}>⚡ Acciones Rápidas</Text>
         <View style={styles.quickActions}>
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => navigation.navigate('Deposit')}
+          <Pressable
+            style={[styles.actionButton, webStyles]}
+            onPress={() => navigation.navigate("Deposit")}
           >
-            <View style={[styles.actionGradient, { backgroundColor: colors.success }]}>
+            <View
+              style={[
+                styles.actionGradient,
+                { backgroundColor: colors.success },
+              ]}
+            >
               <Ionicons name="arrow-down" size={24} color="#FFF" />
             </View>
             <Text style={styles.actionLabel}>Depósito</Text>
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => navigation.navigate('Withdrawal')}
+          <Pressable
+            style={[styles.actionButton, webStyles]}
+            onPress={() => navigation.navigate("Withdrawal")}
           >
-            <View style={[styles.actionGradient, { backgroundColor: colors.error }]}>
+            <View
+              style={[styles.actionGradient, { backgroundColor: colors.error }]}
+            >
               <Ionicons name="arrow-up" size={24} color="#FFF" />
             </View>
             <Text style={styles.actionLabel}>Retiro</Text>
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => navigation.navigate('Transfer')}
+          <Pressable
+            style={[styles.actionButton, webStyles]}
+            onPress={() => navigation.navigate("Transfer")}
           >
-            <View style={[styles.actionGradient, { backgroundColor: colors.info }]}>
+            <View
+              style={[styles.actionGradient, { backgroundColor: colors.info }]}
+            >
               <Ionicons name="swap-horizontal" size={24} color="#FFF" />
             </View>
             <Text style={styles.actionLabel}>Transferir</Text>
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => navigation.navigate('CreateAccount')}
+          <Pressable
+            style={[styles.actionButton, webStyles]}
+            onPress={() => navigation.navigate("CreateAccount")}
           >
-            <View style={[styles.actionGradient, { backgroundColor: colors.secondary }]}>
+            <View
+              style={[
+                styles.actionGradient,
+                { backgroundColor: colors.secondary },
+              ]}
+            >
               <Ionicons name="add" size={24} color="#FFF" />
             </View>
             <Text style={styles.actionLabel}>Nueva</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         {/* Accounts */}
         <View style={styles.accountsHeader}>
           <Text style={styles.sectionTitle}>🎓 Mis Cuentas</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Accounts')}>
+          <Pressable onPress={() => navigation.navigate("Accounts")}>
             <Text style={styles.viewAll}>Ver todas</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         {accounts.length === 0 ? (
@@ -159,23 +184,26 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             <Text style={styles.emptyEmoji}>👻</Text>
             <Text style={styles.emptyTitle}>¡Sin cuentas aún!</Text>
             <Text style={styles.emptyText}>
-              Crea tu primera cuenta y comienza a ahorrar como un verdadero monstruo
+              Crea tu primera cuenta y comienza a ahorrar como un verdadero
+              monstruo
             </Text>
             <Button
               title="Crear Cuenta"
-              onPress={() => navigation.navigate('CreateAccount')}
+              onPress={() => navigation.navigate("CreateAccount")}
               variant="secondary"
               size="sm"
             />
           </Card>
         ) : (
-          accounts.slice(0, 2).map((account) => (
-            <AccountCard
-              key={account.id}
-              account={account}
-              onPress={() => console.log('Account:', account.id)}
-            />
-          ))
+          accounts
+            .slice(0, 2)
+            .map((account) => (
+              <AccountCard
+                key={account.id}
+                account={account}
+                onPress={() => console.log("Account:", account.id)}
+              />
+            ))
         )}
 
         {/* Monster Quote */}
@@ -183,7 +211,9 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <Text style={styles.quoteText}>
             "No estoy asustado... ¡Estoy ahorrando!" 💪
           </Text>
-          <Text style={styles.quoteAuthor}>- Mike Wazowski (probablemente)</Text>
+          <Text style={styles.quoteAuthor}>
+            - Mike Wazowski (probablemente)
+          </Text>
         </Card>
       </ScrollView>
     </GradientBackground>
@@ -199,9 +229,9 @@ const styles = StyleSheet.create({
     paddingTop: spacing.xxl,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: spacing.lg,
   },
   greeting: {
@@ -217,13 +247,13 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   profileGradient: {
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.accent,
     borderRadius: 25,
   },
@@ -236,7 +266,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   balanceLabel: {
-    color: 'rgba(255,255,255,0.8)',
+    color: "rgba(255,255,255,0.8)",
     fontSize: fontSize.sm,
     marginBottom: spacing.xs,
   },
@@ -246,7 +276,7 @@ const styles = StyleSheet.create({
     fontWeight: fontWeight.bold,
   },
   balanceSubtext: {
-    color: 'rgba(255,255,255,0.6)',
+    color: "rgba(255,255,255,0.6)",
     fontSize: fontSize.sm,
     marginTop: spacing.xs,
   },
@@ -257,19 +287,19 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   quickActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: spacing.lg,
   },
   actionButton: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   actionGradient: {
     width: 56,
     height: 56,
     borderRadius: borderRadius.lg,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: spacing.xs,
   },
   actionLabel: {
@@ -277,16 +307,16 @@ const styles = StyleSheet.create({
     fontSize: fontSize.xs,
   },
   accountsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   viewAll: {
     color: colors.accent,
     fontSize: fontSize.sm,
   },
   emptyCard: {
-    alignItems: 'center',
+    alignItems: "center",
     padding: spacing.xl,
   },
   emptyEmoji: {
@@ -302,18 +332,18 @@ const styles = StyleSheet.create({
   emptyText: {
     color: colors.textSecondary,
     fontSize: fontSize.sm,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: spacing.lg,
   },
   quoteCard: {
     marginTop: spacing.md,
-    alignItems: 'center',
+    alignItems: "center",
   },
   quoteText: {
     color: colors.textPrimary,
     fontSize: fontSize.md,
-    fontStyle: 'italic',
-    textAlign: 'center',
+    fontStyle: "italic",
+    textAlign: "center",
   },
   quoteAuthor: {
     color: colors.textMuted,
