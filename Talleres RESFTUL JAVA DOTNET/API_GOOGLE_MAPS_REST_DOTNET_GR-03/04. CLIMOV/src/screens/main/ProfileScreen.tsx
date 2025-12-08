@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,28 +6,36 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { Card, Button, GradientBackground } from '../../components/ui';
-import { useAuth } from '../../context';
-import { colors, spacing, fontSize, fontWeight, borderRadius } from '../../theme';
-import { API_CONFIG } from '../../config/api.config';
-import { apiClient } from '../../services';
-import type { User } from '../../types';
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Card, Button, GradientBackground } from "../../components/ui";
+import { useAuth } from "../../context";
+import {
+  colors,
+  spacing,
+  fontSize,
+  fontWeight,
+  borderRadius,
+} from "../../theme";
+import { API_CONFIG } from "../../config/api.config";
+import { apiClient } from "../../services";
+import type { User } from "../../types";
 
-export const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+export const ProfileScreen: React.FC<{ navigation: any }> = ({
+  navigation,
+}) => {
   const { user, logout } = useAuth();
-  const [currentApi, setCurrentApi] = useState<'dotnet' | 'java'>('dotnet');
+  const [currentApi, setCurrentApi] = useState<"dotnet" | "java">("dotnet");
 
   const handleLogout = async () => {
     Alert.alert(
-      '👋 ¿Cerrar Sesión?',
-      '¿Estás seguro que quieres salir? ¡Te extrañaremos!',
+      "👋 ¿Cerrar Sesión?",
+      "¿Estás seguro que quieres salir? ¡Te extrañaremos!",
       [
-        { text: 'Cancelar', style: 'cancel' },
+        { text: "Cancelar", style: "cancel" },
         {
-          text: 'Sí, salir',
-          style: 'destructive',
+          text: "Sí, salir",
+          style: "destructive",
           onPress: async () => {
             await logout();
           },
@@ -37,26 +45,27 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
   };
 
   const toggleApi = () => {
-    const newApi = currentApi === 'dotnet' ? 'java' : 'dotnet';
+    const newApi = currentApi === "dotnet" ? "java" : "dotnet";
     setCurrentApi(newApi);
-    const newUrl = newApi === 'dotnet' ? API_CONFIG.DOTNET_URL : API_CONFIG.JAVA_URL;
+    const newUrl =
+      newApi === "dotnet" ? API_CONFIG.DOTNET_URL : API_CONFIG.JAVA_URL;
     apiClient.setBaseUrl(newUrl);
-    
+
     Alert.alert(
-      '🔄 API Cambiada',
+      "🔄 API Cambiada",
       `Ahora estás usando el backend de ${newApi.toUpperCase()}`,
-      [{ text: 'OK' }]
+      [{ text: "OK" }]
     );
   };
 
   const getRoleName = (role: number) => {
     const roles: Record<number, string> = {
-      0: '👑 Administrador',
-      1: '💰 Finanzas',
-      2: '📊 Manager',
-      3: '🎓 Estudiante',
+      0: "👑 Administrador",
+      1: "💰 Finanzas",
+      2: "📊 Manager",
+      3: "🎓 Estudiante",
     };
-    return roles[role] || '👻 Desconocido';
+    return roles[role] || "👻 Desconocido";
   };
 
   return (
@@ -67,13 +76,15 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
       >
         {/* Profile Header */}
         <View style={styles.header}>
-          <View style={[styles.avatarContainer, { backgroundColor: colors.accent }]}>
+          <View
+            style={[styles.avatarContainer, { backgroundColor: colors.accent }]}
+          >
             <Text style={styles.avatarText}>
-              {user?.firstName?.charAt(0) || '👻'}
+              {user?.firstName?.charAt(0) || "👻"}
             </Text>
           </View>
           <Text style={styles.userName}>
-            {user ? `${user.firstName} ${user.lastName}` : 'Monstruo'}
+            {user ? `${user.firstName} ${user.lastName}` : "Monstruo"}
           </Text>
           <Text style={styles.userEmail}>{user?.email}</Text>
           <View style={styles.roleBadge}>
@@ -84,7 +95,7 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
         {/* User Info Card */}
         <Card style={styles.infoCard}>
           <Text style={styles.cardTitle}>📋 Información de la Cuenta</Text>
-          
+
           <View style={styles.infoRow}>
             <View style={styles.infoIcon}>
               <Ionicons name="person" size={20} color={colors.accent} />
@@ -107,70 +118,32 @@ export const ProfileScreen: React.FC<{ navigation: any }> = ({ navigation }) => 
 
           <View style={styles.infoRow}>
             <View style={styles.infoIcon}>
-              <Ionicons 
-                name={user?.isActive ? 'checkmark-circle' : 'close-circle'} 
-                size={20} 
-                color={user?.isActive ? colors.success : colors.error} 
+              <Ionicons
+                name={user?.isActive ? "checkmark-circle" : "close-circle"}
+                size={20}
+                color={user?.isActive ? colors.success : colors.error}
               />
             </View>
             <View style={styles.infoContent}>
               <Text style={styles.infoLabel}>Estado</Text>
-              <Text style={[styles.infoValue, { color: user?.isActive ? colors.success : colors.error }]}>
-                {user?.isActive ? 'Activo' : 'Inactivo'}
+              <Text
+                style={[
+                  styles.infoValue,
+                  { color: user?.isActive ? colors.success : colors.error },
+                ]}
+              >
+                {user?.isActive ? "Activo" : "Inactivo"}
               </Text>
             </View>
           </View>
-        </Card>
-
-        {/* API Switcher */}
-        <Card style={styles.apiCard}>
-          <Text style={styles.cardTitle}>🔧 Configuración de API</Text>
-          <Text style={styles.apiDescription}>
-            Cambia entre los backends de .NET y Java
-          </Text>
-          
-          <View style={styles.apiToggle}>
-            <TouchableOpacity
-              style={[
-                styles.apiOption,
-                currentApi === 'dotnet' && styles.apiOptionActive,
-              ]}
-              onPress={() => currentApi !== 'dotnet' && toggleApi()}
-            >
-              <Text style={[
-                styles.apiOptionText,
-                currentApi === 'dotnet' && styles.apiOptionTextActive,
-              ]}>
-                🟣 .NET
-              </Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity
-              style={[
-                styles.apiOption,
-                currentApi === 'java' && styles.apiOptionActive,
-              ]}
-              onPress={() => currentApi !== 'java' && toggleApi()}
-            >
-              <Text style={[
-                styles.apiOptionText,
-                currentApi === 'java' && styles.apiOptionTextActive,
-              ]}>
-                ☕ Java
-              </Text>
-            </TouchableOpacity>
-          </View>
-          
-          <Text style={styles.apiUrl}>
-            URL actual: {currentApi === 'dotnet' ? API_CONFIG.DOTNET_URL : API_CONFIG.JAVA_URL}
-          </Text>
         </Card>
 
         {/* MU Quote */}
         <Card variant="gradient" style={styles.quoteCard}>
           <Text style={styles.quoteEmoji}>🏛️</Text>
           <Text style={styles.quoteText}>
-            "Monsters University - Donde los sueños de asustar se hacen realidad"
+            "Monsters University - Donde los sueños de asustar se hacen
+            realidad"
           </Text>
         </Card>
 
@@ -197,15 +170,15 @@ const styles = StyleSheet.create({
     paddingTop: spacing.xxl,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: spacing.lg,
   },
   avatarContainer: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: spacing.md,
   },
   avatarText: {
@@ -247,8 +220,8 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: spacing.sm,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
@@ -258,8 +231,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: borderRadius.md,
     backgroundColor: `${colors.accent}20`,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   infoContent: {
     marginLeft: spacing.md,
@@ -283,7 +256,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   apiToggle: {
-    flexDirection: 'row',
+    flexDirection: "row",
     backgroundColor: colors.backgroundLight,
     borderRadius: borderRadius.md,
     padding: spacing.xs,
@@ -292,7 +265,7 @@ const styles = StyleSheet.create({
   apiOption: {
     flex: 1,
     paddingVertical: spacing.sm,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: borderRadius.sm,
   },
   apiOptionActive: {
@@ -309,10 +282,10 @@ const styles = StyleSheet.create({
   apiUrl: {
     color: colors.textMuted,
     fontSize: fontSize.xs,
-    textAlign: 'center',
+    textAlign: "center",
   },
   quoteCard: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: spacing.lg,
   },
   quoteEmoji: {
@@ -320,10 +293,10 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   quoteText: {
-    color: 'rgba(255,255,255,0.9)',
+    color: "rgba(255,255,255,0.9)",
     fontSize: fontSize.sm,
-    fontStyle: 'italic',
-    textAlign: 'center',
+    fontStyle: "italic",
+    textAlign: "center",
   },
   logoutButton: {
     marginBottom: spacing.md,
@@ -331,6 +304,6 @@ const styles = StyleSheet.create({
   version: {
     color: colors.textMuted,
     fontSize: fontSize.xs,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

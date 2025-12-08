@@ -29,9 +29,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const newErrors: typeof errors = {};
     
     if (!email) {
-      newErrors.email = 'El email es requerido';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Email inválido';
+      newErrors.email = 'El usuario o email es requerido';
     }
     
     if (!password) {
@@ -88,13 +86,13 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
             </Text>
 
             <Input
-              label="Email Universitario"
-              placeholder="mike@monstersuniversity.edu"
-              icon="mail"
+              label="Usuario o Email"
+              placeholder="mike o mike@monstersuniversity.edu"
+              icon="person"
               value={email}
               onChangeText={setEmail}
               error={errors.email}
-              keyboardType="email-address"
+              keyboardType="default"
               autoCapitalize="none"
             />
 

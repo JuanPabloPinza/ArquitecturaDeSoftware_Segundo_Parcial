@@ -21,7 +21,7 @@ import {
   WebMap,
 } from "./locations";
 
-const API_KEY = "AQUI_API_KEY_GOOGLE_MAPS";
+const API_KEY = "AIzaSyBYANv9b5K5Zu1eUP_iJijkXwVlQbiXajE";
 
 export const LocationsScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
