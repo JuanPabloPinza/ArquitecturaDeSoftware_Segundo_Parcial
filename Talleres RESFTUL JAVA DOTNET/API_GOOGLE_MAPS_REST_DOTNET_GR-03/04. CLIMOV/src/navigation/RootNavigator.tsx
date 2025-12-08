@@ -10,6 +10,7 @@ import {
   DepositScreen,
   WithdrawalScreen,
   TransferScreen,
+  BranchManagementScreen,
 } from "../screens/operations";
 import { useAuth } from "../context";
 import { colors } from "../theme";
@@ -51,6 +52,7 @@ export const RootNavigator: React.FC = () => {
           <Stack.Screen name="Deposit" component={DepositScreen} />
           <Stack.Screen name="Withdrawal" component={WithdrawalScreen} />
           <Stack.Screen name="Transfer" component={TransferScreen} />
+          <Stack.Screen name="BranchManagement" component={BranchManagementScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -69,6 +71,7 @@ export const RootNavigator: React.FC = () => {
             <Stack.Screen name="Deposit" component={DepositScreen} />
             <Stack.Screen name="Withdrawal" component={WithdrawalScreen} />
             <Stack.Screen name="Transfer" component={TransferScreen} />
+            <Stack.Screen name="BranchManagement" component={BranchManagementScreen} />
           </>
         ) : (
           <Stack.Screen name="Auth" component={AuthNavigator} />

@@ -12,6 +12,7 @@ namespace API_DOTNET_BANK.Infraestructure
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Account> Accounts { get; set; } = null!;
         public DbSet<Transaction> Transactions { get; set; } = null!;
+        public DbSet<Branch> Branches { get; set; } = null!;
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,6 +21,7 @@ namespace API_DOTNET_BANK.Infraestructure
             modelBuilder.ApplyConfiguration(new UserConfig());
             modelBuilder.ApplyConfiguration(new AccountConfig());
             modelBuilder.ApplyConfiguration(new TransactionConfig());
+            modelBuilder.ApplyConfiguration(new BranchConfig());
         }
     }
 }

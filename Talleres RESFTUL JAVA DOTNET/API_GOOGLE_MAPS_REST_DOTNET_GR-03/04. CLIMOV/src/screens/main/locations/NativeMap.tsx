@@ -12,6 +12,7 @@ interface Props {
   showRoute: boolean;
   apiKey?: string;
   onSelectLocation: (loc: BankLocation) => void;
+  customOrigin?: { latitude: number; longitude: number } | null;
 }
 
 const INITIAL_REGION = {
@@ -22,7 +23,7 @@ const INITIAL_REGION = {
 };
 
 export const NativeMap: React.FC<Props> = ({ 
-  mapRef, locations, selected, userLocation, showRoute, apiKey, onSelectLocation 
+  mapRef, locations, selected, userLocation, showRoute, apiKey, onSelectLocation, customOrigin 
 }) => {
   if (Platform.OS === 'web' || !MapView) return null;
 
@@ -30,29 +31,31 @@ export const NativeMap: React.FC<Props> = ({
 
   useEffect(() => {
     const fetchRoute = async () => {
-      if (!showRoute || !userLocation || !selected || !apiKey) {
+      const origin = customOrigin || userLocation;
+      if (!showRoute || !origin || !selected || !apiKey) {
         setRouteCoords([]);
         return;
       }
       try {
-        const origin = `${userLocation.latitude},${userLocation.longitude}`;
+        const originStr = `${origin.latitude},${origin.longitude}`;
         const destination = `${selected.latitude},${selected.longitude}`;
-        const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&mode=driving&key=${apiKey}`;
+        const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${originStr}&destination=${destination}&mode=driving&key=${apiKey}`;
         const res = await fetch(url);
         const json = await res.json();
         const points = json?.routes?.[0]?.overview_polyline?.points;
         if (!points) {
-          setRouteCoords([userLocation, { latitude: selected.latitude, longitude: selected.longitude }]);
+          setRouteCoords([origin, { latitude: selected.latitude, longitude: selected.longitude }]);
           return;
         }
         const decoded = decodePolyline(points);
         setRouteCoords(decoded);
       } catch {
-        setRouteCoords([userLocation, { latitude: selected.latitude, longitude: selected.longitude }]);
+        const origin2 = customOrigin || userLocation;
+        if (origin2) setRouteCoords([origin2, { latitude: selected.latitude, longitude: selected.longitude }]);
       }
     };
     fetchRoute();
-  }, [showRoute, userLocation?.latitude, userLocation?.longitude, selected?.latitude, selected?.longitude, apiKey]);
+  }, [showRoute, userLocation?.latitude, userLocation?.longitude, selected?.latitude, selected?.longitude, apiKey, customOrigin?.latitude, customOrigin?.longitude]);
 
   const decodePolyline = (encoded: string) => {
     let index = 0, lat = 0, lng = 0;
@@ -109,7 +112,7 @@ export const NativeMap: React.FC<Props> = ({
       {showRoute && userLocation && selected && routeCoords.length > 0 && (
         <Polyline
           coordinates={routeCoords}
-          strokeColor={colors.primary}
+          strokeColor={'black'}
           strokeWidth={5}
           lineCap="round"
           lineJoin="round"

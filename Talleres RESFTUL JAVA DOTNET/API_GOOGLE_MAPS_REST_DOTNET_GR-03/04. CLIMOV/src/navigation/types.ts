@@ -18,4 +18,5 @@ export type RootStackParamList = {
   Deposit: undefined;
   Withdrawal: undefined;
   Transfer: undefined;
+  BranchManagement: undefined;
 };

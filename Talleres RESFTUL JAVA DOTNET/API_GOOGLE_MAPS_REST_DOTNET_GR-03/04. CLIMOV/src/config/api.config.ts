@@ -4,11 +4,11 @@ const getBaseUrl = () => {
     if (Platform.OS === 'android') {
         return 'http://10.40.29.241:5238';
     }
-    return 'http://localhost:5238';
+    return 'http://10.40.29.241:5238';
 };
 
 export const API_CONFIG = {
-    DOTNET_URL: 'http://localhost:5238',
+    DOTNET_URL: 'http://10.40.29.241:5238',
     JAVA_URL: 'http://localhost:8080',
 
     BASE_URL: getBaseUrl(),
@@ -29,6 +29,10 @@ export const API_CONFIG = {
         DEPOSIT: '/api/transaction/deposit',
         WITHDRAWAL: '/api/transaction/withdrawal',
         TRANSFER: '/api/transaction/transfer',
+
+        // Branches
+        BRANCHES: '/api/branch',
+        BRANCH_BY_ID: (id: number) => `/api/branch/${id}`,
     },
 };
 
