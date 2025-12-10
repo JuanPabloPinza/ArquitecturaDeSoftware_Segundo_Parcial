@@ -25,9 +25,8 @@ import {
   OriginSelectorModal,
 } from "./locations";
 
-const API_KEY = "s";
+const API_KEY = "AIzaSyBWiLnhVecn69yemUZmvHl1OnGf6b6rqfo";
 
-// Convertir Branch de API a BankLocation para los componentes
 const branchToBankLocation = (branch: Branch): BankLocation => ({
   id: branch.id.toString(),
   name: branch.name,

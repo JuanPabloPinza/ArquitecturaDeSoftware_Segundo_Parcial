@@ -2,9 +2,9 @@ import { Platform } from 'react-native';
 
 const getBaseUrl = () => {
     if (Platform.OS === 'android') {
-        return 'http://10.40.29.241:5238';
+        return 'http://10.40.29.241:8080';
     }
-    return 'http://10.40.29.241:5238';
+    return 'http://10.40.29.241:8080';
 };
 
 export const API_CONFIG = {

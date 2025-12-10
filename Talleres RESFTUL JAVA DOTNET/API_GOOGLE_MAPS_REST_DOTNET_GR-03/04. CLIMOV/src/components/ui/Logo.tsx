@@ -53,8 +53,17 @@ export const Logo: React.FC<LogoProps> = ({
         </Text>
       )}
 
-      <Text style={[styles.tagline, { fontSize: sizes.tagline }]}>
-        JAVA
+      <Text
+        style={{
+          fontSize: 20,
+          color: "white",
+          fontStyle: "italic",
+          letterSpacing: 1.5,
+          marginTop: spacing.sm,
+          textAlign: "center",
+        }}
+      >
+        DOTNET VERSION
       </Text>
     </View>
   );
