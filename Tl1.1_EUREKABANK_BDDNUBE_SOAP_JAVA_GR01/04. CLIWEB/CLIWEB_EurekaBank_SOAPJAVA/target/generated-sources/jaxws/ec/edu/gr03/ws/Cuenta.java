@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for cuenta complex type.
+ * <p>Clase Java para cuenta complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="cuenta"&gt;
@@ -46,7 +46,7 @@ public class Cuenta {
     protected double saldo;
 
     /**
-     * Gets the value of the estado property.
+     * Obtiene el valor de la propiedad estado.
      * 
      * @return
      *     possible object is
@@ -58,7 +58,7 @@ public class Cuenta {
     }
 
     /**
-     * Sets the value of the estado property.
+     * Define el valor de la propiedad estado.
      * 
      * @param value
      *     allowed object is
@@ -70,7 +70,7 @@ public class Cuenta {
     }
 
     /**
-     * Gets the value of the moneda property.
+     * Obtiene el valor de la propiedad moneda.
      * 
      * @return
      *     possible object is
@@ -82,7 +82,7 @@ public class Cuenta {
     }
 
     /**
-     * Sets the value of the moneda property.
+     * Define el valor de la propiedad moneda.
      * 
      * @param value
      *     allowed object is
@@ -94,7 +94,7 @@ public class Cuenta {
     }
 
     /**
-     * Gets the value of the nombreCliente property.
+     * Obtiene el valor de la propiedad nombreCliente.
      * 
      * @return
      *     possible object is
@@ -106,7 +106,7 @@ public class Cuenta {
     }
 
     /**
-     * Sets the value of the nombreCliente property.
+     * Define el valor de la propiedad nombreCliente.
      * 
      * @param value
      *     allowed object is
@@ -118,7 +118,7 @@ public class Cuenta {
     }
 
     /**
-     * Gets the value of the numeroCuenta property.
+     * Obtiene el valor de la propiedad numeroCuenta.
      * 
      * @return
      *     possible object is
@@ -130,7 +130,7 @@ public class Cuenta {
     }
 
     /**
-     * Sets the value of the numeroCuenta property.
+     * Define el valor de la propiedad numeroCuenta.
      * 
      * @param value
      *     allowed object is
@@ -142,7 +142,7 @@ public class Cuenta {
     }
 
     /**
-     * Gets the value of the saldo property.
+     * Obtiene el valor de la propiedad saldo.
      * 
      */
     public double getSaldo() {
@@ -150,7 +150,7 @@ public class Cuenta {
     }
 
     /**
-     * Sets the value of the saldo property.
+     * Define el valor de la propiedad saldo.
      * 
      */
     public void setSaldo(double value) {

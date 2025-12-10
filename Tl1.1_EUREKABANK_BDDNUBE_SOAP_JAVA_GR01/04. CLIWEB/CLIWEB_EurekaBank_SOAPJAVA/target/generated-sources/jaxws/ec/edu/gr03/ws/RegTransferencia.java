@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for regTransferencia complex type.
+ * <p>Clase Java para regTransferencia complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="regTransferencia"&gt;
@@ -40,7 +40,7 @@ public class RegTransferencia {
     protected double importe;
 
     /**
-     * Gets the value of the cuentaOrigen property.
+     * Obtiene el valor de la propiedad cuentaOrigen.
      * 
      * @return
      *     possible object is
@@ -52,7 +52,7 @@ public class RegTransferencia {
     }
 
     /**
-     * Sets the value of the cuentaOrigen property.
+     * Define el valor de la propiedad cuentaOrigen.
      * 
      * @param value
      *     allowed object is
@@ -64,7 +64,7 @@ public class RegTransferencia {
     }
 
     /**
-     * Gets the value of the cuentaDestino property.
+     * Obtiene el valor de la propiedad cuentaDestino.
      * 
      * @return
      *     possible object is
@@ -76,7 +76,7 @@ public class RegTransferencia {
     }
 
     /**
-     * Sets the value of the cuentaDestino property.
+     * Define el valor de la propiedad cuentaDestino.
      * 
      * @param value
      *     allowed object is
@@ -88,7 +88,7 @@ public class RegTransferencia {
     }
 
     /**
-     * Gets the value of the importe property.
+     * Obtiene el valor de la propiedad importe.
      * 
      */
     public double getImporte() {
@@ -96,7 +96,7 @@ public class RegTransferencia {
     }
 
     /**
-     * Sets the value of the importe property.
+     * Define el valor de la propiedad importe.
      * 
      */
     public void setImporte(double value) {

@@ -7,5 +7,9 @@
         <group name="ArqEx1P">
             <file>file:/D:/ReposGitHub/ArquitecturaDeSoftware_Segundo_Parcial/T.I.2.1PAO202551_EUREKABANK_BDDNUBE_SOAP_JAVA_GR01/04.%20CLIESC/eurekabank_escritorio/src/META-INF/jax-ws-catalog.xml</file>
         </group>
+        <group name="BDDNUBE">
+            <file>file:/E:/DECIMO%20SEMESTRE/ARQUITECTURA/P2/REPO/ArquitecturaDeSoftware_Segundo_Parcial/Tl2.1_EUREKABANK_BDDNUBE_SOAP_JAVA_GR01/04.%20CLIESC/eurekabank_escritorio/xml-resources/web-service-references/WSEureka/wsdl/localhost_8080/eurekabank/WSEureka.wsdl</file>
+            <file>file:/E:/DECIMO%20SEMESTRE/ARQUITECTURA/P2/REPO/ArquitecturaDeSoftware_Segundo_Parcial/Tl2.1_EUREKABANK_BDDNUBE_SOAP_JAVA_GR01/04.%20CLIESC/eurekabank_escritorio/src/ec/edu/gr03/model/EurekaBankClient.java</file>
+        </group>
     </open-files>
 </project-private>

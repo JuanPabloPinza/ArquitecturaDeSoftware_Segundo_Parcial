@@ -17,7 +17,7 @@ import jakarta.xml.ws.WebServiceFeature;
  * Generated source version: 3.0
  * 
  */
-@WebServiceClient(name = "WSEureka", targetNamespace = "http://controller.gr03.edu.ec/", wsdlLocation = "http://localhost:8080/eurekabank/WSEureka?wsdl")
+@WebServiceClient(name = "WSEureka", targetNamespace = "http://controller.gr03.edu.ec/", wsdlLocation = "http://10.21.178.81:8080/eurekabank/WSEureka?wsdl")
 public class WSEureka_Service
     extends Service
 {
@@ -30,7 +30,7 @@ public class WSEureka_Service
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:8080/eurekabank/WSEureka?wsdl");
+            url = new URL("http://10.21.178.81:8080/eurekabank/WSEureka?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

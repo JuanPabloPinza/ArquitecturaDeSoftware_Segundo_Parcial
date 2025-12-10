@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for regTransferenciaResponse complex type.
+ * <p>Clase Java para regTransferenciaResponse complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="regTransferenciaResponse"&gt;
@@ -34,7 +34,7 @@ public class RegTransferenciaResponse {
     protected int estado;
 
     /**
-     * Gets the value of the estado property.
+     * Obtiene el valor de la propiedad estado.
      * 
      */
     public int getEstado() {
@@ -42,7 +42,7 @@ public class RegTransferenciaResponse {
     }
 
     /**
-     * Sets the value of the estado property.
+     * Define el valor de la propiedad estado.
      * 
      */
     public void setEstado(int value) {

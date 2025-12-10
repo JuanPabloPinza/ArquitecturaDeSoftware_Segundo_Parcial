@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is Eclipse Metro/4.0.3.payara-p1 (metro-4.0.3.payara-maintenance-004e4e3; 2023-11-08T12:59:53+0000) XMLWS-Impl/4.0.2 XMLWS-API/4.0.1 XMLB-Impl/4.0.4 XMLB-API/4.0.1 git-revision#004e4e3. --><xs:schema xmlns:tns="http://controller.gr03.edu.ec/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://controller.gr03.edu.ec/">
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is Eclipse Metro/4.0.4.payara-p1 (FISH-10142-Metro-4.0.4-fa01c0b; 2025-07-11T17:44:37+0100) XMLWS-Impl/4.0.3 XMLWS-API/4.0.2 XMLB-Impl/4.0.5 XMLB-API/4.0.2 git-revision#fa01c0b. --><xs:schema xmlns:tns="http://controller.gr03.edu.ec/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://controller.gr03.edu.ec/">
 
 <xs:element name="cuenta" type="tns:cuenta"/>
 
@@ -28,19 +28,6 @@
 
 <xs:element name="traerMovimientosResponse" type="tns:traerMovimientosResponse"/>
 
-<xs:complexType name="regRetiro">
-<xs:sequence>
-<xs:element name="cuenta" type="xs:string" minOccurs="0"/>
-<xs:element name="importe" type="xs:double"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="regRetiroResponse">
-<xs:sequence>
-<xs:element name="estado" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="traerMovimientos">
 <xs:sequence>
 <xs:element name="cuenta" type="xs:string" minOccurs="0"/>
@@ -61,6 +48,19 @@
 <xs:element name="importe" type="xs:double"/>
 <xs:element name="nromov" type="xs:int"/>
 <xs:element name="tipo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="regRetiro">
+<xs:sequence>
+<xs:element name="cuenta" type="xs:string" minOccurs="0"/>
+<xs:element name="importe" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="regRetiroResponse">
+<xs:sequence>
+<xs:element name="estado" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
