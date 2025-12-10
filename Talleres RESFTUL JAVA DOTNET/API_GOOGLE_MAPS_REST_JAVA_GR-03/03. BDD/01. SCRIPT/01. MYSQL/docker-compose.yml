@@ -1,0 +1,50 @@
+services:
+  mysql-dotnet:
+    image: mysql:8.0
+    container_name: mysql-dotnet-bank
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: dotnet_bank_db
+      MYSQL_USER: dotnet_user
+      MYSQL_PASSWORD: dotnet_pass123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_dotnet_data:/var/lib/mysql
+    networks:
+      - bank-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mysql-java:
+    image: mysql:8.0
+    container_name: mysql-java-bank
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: java_bank_db
+      MYSQL_USER: java_user
+      MYSQL_PASSWORD: java_pass123
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_java_data:/var/lib/mysql
+    networks:
+      - bank-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_dotnet_data:
+    driver: local
+  mysql_java_data:
+    driver: local
+
+networks:
+  bank-network:
+    driver: bridge
