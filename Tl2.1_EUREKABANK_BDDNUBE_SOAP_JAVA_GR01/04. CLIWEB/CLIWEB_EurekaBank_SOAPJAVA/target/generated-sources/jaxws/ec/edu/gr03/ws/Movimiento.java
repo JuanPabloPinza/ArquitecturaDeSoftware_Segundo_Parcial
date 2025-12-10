@@ -9,9 +9,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for movimiento complex type.
+ * <p>Clase Java para movimiento complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="movimiento"&gt;
@@ -52,7 +52,7 @@ public class Movimiento {
     protected String tipo;
 
     /**
-     * Gets the value of the accion property.
+     * Obtiene el valor de la propiedad accion.
      * 
      * @return
      *     possible object is
@@ -64,7 +64,7 @@ public class Movimiento {
     }
 
     /**
-     * Sets the value of the accion property.
+     * Define el valor de la propiedad accion.
      * 
      * @param value
      *     allowed object is
@@ -76,7 +76,7 @@ public class Movimiento {
     }
 
     /**
-     * Gets the value of the cuenta property.
+     * Obtiene el valor de la propiedad cuenta.
      * 
      * @return
      *     possible object is
@@ -88,7 +88,7 @@ public class Movimiento {
     }
 
     /**
-     * Sets the value of the cuenta property.
+     * Define el valor de la propiedad cuenta.
      * 
      * @param value
      *     allowed object is
@@ -100,7 +100,7 @@ public class Movimiento {
     }
 
     /**
-     * Gets the value of the fecha property.
+     * Obtiene el valor de la propiedad fecha.
      * 
      * @return
      *     possible object is
@@ -112,7 +112,7 @@ public class Movimiento {
     }
 
     /**
-     * Sets the value of the fecha property.
+     * Define el valor de la propiedad fecha.
      * 
      * @param value
      *     allowed object is
@@ -124,7 +124,7 @@ public class Movimiento {
     }
 
     /**
-     * Gets the value of the importe property.
+     * Obtiene el valor de la propiedad importe.
      * 
      */
     public double getImporte() {
@@ -132,7 +132,7 @@ public class Movimiento {
     }
 
     /**
-     * Sets the value of the importe property.
+     * Define el valor de la propiedad importe.
      * 
      */
     public void setImporte(double value) {
@@ -140,7 +140,7 @@ public class Movimiento {
     }
 
     /**
-     * Gets the value of the nromov property.
+     * Obtiene el valor de la propiedad nromov.
      * 
      */
     public int getNromov() {
@@ -148,7 +148,7 @@ public class Movimiento {
     }
 
     /**
-     * Sets the value of the nromov property.
+     * Define el valor de la propiedad nromov.
      * 
      */
     public void setNromov(int value) {
@@ -156,7 +156,7 @@ public class Movimiento {
     }
 
     /**
-     * Gets the value of the tipo property.
+     * Obtiene el valor de la propiedad tipo.
      * 
      * @return
      *     possible object is
@@ -168,7 +168,7 @@ public class Movimiento {
     }
 
     /**
-     * Sets the value of the tipo property.
+     * Define el valor de la propiedad tipo.
      * 
      * @param value
      *     allowed object is

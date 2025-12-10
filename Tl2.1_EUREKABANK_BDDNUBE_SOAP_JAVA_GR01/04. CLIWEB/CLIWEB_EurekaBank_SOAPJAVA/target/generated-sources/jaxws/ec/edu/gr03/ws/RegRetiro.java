@@ -7,9 +7,9 @@ import jakarta.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for regRetiro complex type.
+ * <p>Clase Java para regRetiro complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * 
  * <pre>
  * &lt;complexType name="regRetiro"&gt;
@@ -37,7 +37,7 @@ public class RegRetiro {
     protected double importe;
 
     /**
-     * Gets the value of the cuenta property.
+     * Obtiene el valor de la propiedad cuenta.
      * 
      * @return
      *     possible object is
@@ -49,7 +49,7 @@ public class RegRetiro {
     }
 
     /**
-     * Sets the value of the cuenta property.
+     * Define el valor de la propiedad cuenta.
      * 
      * @param value
      *     allowed object is
@@ -61,7 +61,7 @@ public class RegRetiro {
     }
 
     /**
-     * Gets the value of the importe property.
+     * Obtiene el valor de la propiedad importe.
      * 
      */
     public double getImporte() {
@@ -69,7 +69,7 @@ public class RegRetiro {
     }
 
     /**
-     * Sets the value of the importe property.
+     * Define el valor de la propiedad importe.
      * 
      */
     public void setImporte(double value) {

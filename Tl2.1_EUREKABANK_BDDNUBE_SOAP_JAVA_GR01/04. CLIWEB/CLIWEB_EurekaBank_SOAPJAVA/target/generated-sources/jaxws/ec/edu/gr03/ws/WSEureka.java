@@ -28,6 +28,51 @@ public interface WSEureka {
     /**
      * 
      * @param cuenta
+     * @return
+     *     returns java.util.List<ec.edu.gr03.ws.Movimiento>
+     */
+    @WebMethod
+    @WebResult(name = "movimiento", targetNamespace = "")
+    @RequestWrapper(localName = "traerMovimientos", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerMovimientos")
+    @ResponseWrapper(localName = "traerMovimientosResponse", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerMovimientosResponse")
+    @Action(input = "http://controller.gr03.edu.ec/WSEureka/traerMovimientosRequest", output = "http://controller.gr03.edu.ec/WSEureka/traerMovimientosResponse")
+    public List<Movimiento> traerMovimientos(
+        @WebParam(name = "cuenta", targetNamespace = "")
+        String cuenta);
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<ec.edu.gr03.ws.Cuenta>
+     */
+    @WebMethod
+    @WebResult(name = "cuenta", targetNamespace = "")
+    @RequestWrapper(localName = "traerBalances", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerBalances")
+    @ResponseWrapper(localName = "traerBalancesResponse", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerBalancesResponse")
+    @Action(input = "http://controller.gr03.edu.ec/WSEureka/traerBalancesRequest", output = "http://controller.gr03.edu.ec/WSEureka/traerBalancesResponse")
+    public List<Cuenta> traerBalances();
+
+    /**
+     * 
+     * @param cuenta
+     * @param importe
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "estado", targetNamespace = "")
+    @RequestWrapper(localName = "regDeposito", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.RegDeposito")
+    @ResponseWrapper(localName = "regDepositoResponse", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.RegDepositoResponse")
+    @Action(input = "http://controller.gr03.edu.ec/WSEureka/regDepositoRequest", output = "http://controller.gr03.edu.ec/WSEureka/regDepositoResponse")
+    public int regDeposito(
+        @WebParam(name = "cuenta", targetNamespace = "")
+        String cuenta,
+        @WebParam(name = "importe", targetNamespace = "")
+        double importe);
+
+    /**
+     * 
+     * @param cuenta
      * @param importe
      * @return
      *     returns int
@@ -66,24 +111,6 @@ public interface WSEureka {
 
     /**
      * 
-     * @param cuenta
-     * @param importe
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "estado", targetNamespace = "")
-    @RequestWrapper(localName = "regDeposito", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.RegDeposito")
-    @ResponseWrapper(localName = "regDepositoResponse", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.RegDepositoResponse")
-    @Action(input = "http://controller.gr03.edu.ec/WSEureka/regDepositoRequest", output = "http://controller.gr03.edu.ec/WSEureka/regDepositoResponse")
-    public int regDeposito(
-        @WebParam(name = "cuenta", targetNamespace = "")
-        String cuenta,
-        @WebParam(name = "importe", targetNamespace = "")
-        double importe);
-
-    /**
-     * 
      * @param password
      * @param username
      * @return
@@ -99,32 +126,5 @@ public interface WSEureka {
         String username,
         @WebParam(name = "password", targetNamespace = "")
         String password);
-
-    /**
-     * 
-     * @return
-     *     returns java.util.List<ec.edu.gr03.ws.Cuenta>
-     */
-    @WebMethod
-    @WebResult(name = "cuenta", targetNamespace = "")
-    @RequestWrapper(localName = "traerBalances", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerBalances")
-    @ResponseWrapper(localName = "traerBalancesResponse", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerBalancesResponse")
-    @Action(input = "http://controller.gr03.edu.ec/WSEureka/traerBalancesRequest", output = "http://controller.gr03.edu.ec/WSEureka/traerBalancesResponse")
-    public List<Cuenta> traerBalances();
-
-    /**
-     * 
-     * @param cuenta
-     * @return
-     *     returns java.util.List<ec.edu.gr03.ws.Movimiento>
-     */
-    @WebMethod
-    @WebResult(name = "movimiento", targetNamespace = "")
-    @RequestWrapper(localName = "traerMovimientos", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerMovimientos")
-    @ResponseWrapper(localName = "traerMovimientosResponse", targetNamespace = "http://controller.gr03.edu.ec/", className = "ec.edu.gr03.ws.TraerMovimientosResponse")
-    @Action(input = "http://controller.gr03.edu.ec/WSEureka/traerMovimientosRequest", output = "http://controller.gr03.edu.ec/WSEureka/traerMovimientosResponse")
-    public List<Movimiento> traerMovimientos(
-        @WebParam(name = "cuenta", targetNamespace = "")
-        String cuenta);
 
 }
